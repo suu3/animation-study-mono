@@ -6,6 +6,9 @@
     "dev": "turbo dev",
     "dev:week1": "turbo dev --filter=week1",
     "dev:week2": "turbo dev --filter=week2",
+    "dev:week3": "turbo dev --filter=week3",
+    "dev:week4": "turbo dev --filter=week4",
+    "dev:week5": "turbo dev --filter=week5",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
