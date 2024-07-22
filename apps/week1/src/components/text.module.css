@@ -1,0 +1,25 @@
+.text-wrapper {
+  position: relative;
+  overflow-y: hidden;
+}
+
+.text {
+  color: white;
+  margin: 0;
+  display: flex;
+
+  &.shown {
+    position: absolute;
+    top: 0;
+  }
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  span {
+    margin: 0 5px;
+    font-size: 200px;
+  }
+}
