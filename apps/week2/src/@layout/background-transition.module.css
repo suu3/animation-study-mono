@@ -1,0 +1,26 @@
+.star {
+  position: fixed;
+
+  z-index: -1;
+  background: #fd94f0;
+
+  clip-path: polygon(
+    50% 0%,
+    61.8% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    38.2% 35%
+  );
+}
+
+.dekagram {
+  position: fixed;
+  fill: #fd94f0;
+
+  z-index: -1;
+}
