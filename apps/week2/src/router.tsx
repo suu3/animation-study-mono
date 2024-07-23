@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import App from "./App";
 import Background from "./pages/Background";
 import ClipPath from "./pages/ClipPath";
@@ -10,6 +11,10 @@ export const routerInfo = [
     element: <App />,
     // errorElement: <NotFound />,
     children: [
+      {
+        path: "",
+        element: <Navigate to="home" replace />,
+      },
       {
         path: "home",
         element: <Home />,
