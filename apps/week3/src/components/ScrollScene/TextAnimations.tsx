@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
-const Section = (props) => {
-  const { children } = props;
-
+const Section = ({ children }: { children?: ReactNode }) => {
   return (
     <motion.section
       style={{

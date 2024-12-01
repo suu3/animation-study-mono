@@ -1,4 +1,4 @@
-import { EmojiSrcType, TextureType } from "../types/Emoji";
+import { EmojiSrcType, TextureType } from "../types/emojiTypes";
 import { convertTextureNameToPath } from "./path";
 import { getRandomIntegerInRange } from "./random";
 

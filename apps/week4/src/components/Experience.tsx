@@ -1,5 +1,6 @@
 "use client";
 
+import { Controls } from "@/constants/controls";
 import {
   Box,
   OrbitControls,
@@ -8,15 +9,21 @@ import {
   GradientTexture,
 } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { RigidBody } from "@react-three/rapier";
+import { type RapierRigidBody, RigidBody } from "@react-three/rapier";
 import { useRef } from "react";
-import { Controls } from "@/app/page";
+
+import { Mesh, type Object3D, type Material, type BufferGeometry } from "three";
+
+type GLTFResult = {
+  nodes: { [key: string]: Mesh<BufferGeometry> | Object3D };
+  materials: { [key: string]: Material };
+};
 
 export const Experience = () => {
   //models
-  const bicycle = useGLTF("/medias/city_pack/Bicycle.glb");
-  const tree = useGLTF("/medias/city_pack/Tree.glb");
-  const box = useGLTF("/medias/city_pack/Box.glb");
+  const bicycle = useGLTF("/medias/city_pack/Bicycle.glb") as GLTFResult;
+  const tree = useGLTF("/medias/city_pack/Tree.glb") as GLTFResult;
+  const box = useGLTF("/medias/city_pack/Box.glb") as GLTFResult;
   const { nodes, materials } = bicycle;
 
   //texture
@@ -28,7 +35,7 @@ export const Experience = () => {
   // groundTexture.repeat.set(10, 10);
 
   //keyboard
-  const target = useRef();
+  const target = useRef<RapierRigidBody>(null);
   const isOnFloor = useRef(true);
 
   // 각각 키보드 눌렸는지 감지
@@ -42,29 +49,29 @@ export const Experience = () => {
 
   const handleMovement = () => {
     // console.log(isOnFloor.current);
-    if (!isOnFloor.current) {
+    if (!isOnFloor.current || !target.current) {
       return;
     }
 
     if (rightPressed) {
-      target.current.applyImpulse({ x: 3, y: 0, z: 0 });
+      target.current.applyImpulse({ x: 3, y: 0, z: 0 }, true);
     }
     if (leftPressed) {
-      target.current.applyImpulse({ x: -3, y: 0, z: 0 });
+      target.current.applyImpulse({ x: -3, y: 0, z: 0 }, true);
     }
 
     if (forwardPressed) {
-      target.current.applyImpulse({ x: 0, y: 0, z: -3 });
+      target.current.applyImpulse({ x: 0, y: 0, z: -3 }, true);
     }
     if (backPressed) {
-      target.current.applyImpulse({ x: 0, y: 0, z: 3 });
+      target.current.applyImpulse({ x: 0, y: 0, z: 3 }, true);
     }
   };
 
   const jump = () => {
     if (isOnFloor.current) {
       isOnFloor.current = false;
-      target.current?.applyImpulse({ x: 0, y: 40, z: 0 });
+      target.current?.applyImpulse({ x: 0, y: 40, z: 0 }, true);
     }
   };
 
@@ -90,24 +97,24 @@ export const Experience = () => {
         // colliders="hull" // 충돌영역을 메쉬 크기에 맞게
         onCollisionEnter={({ other }) => {
           // 충돌한 object 이름이 floor => 바닥에 닿고 있는 상태
-          if (other.rigidBodyObject.name === "floor") {
+          if (other.rigidBodyObject && other.rigidBodyObject.name === "floor") {
             isOnFloor.current = true;
           }
         }}
         onCollisionExit={({ other }) => {
-          if (other.rigidBodyObject.name === "floor") {
+          if (other.rigidBodyObject && other.rigidBodyObject.name === "floor") {
             isOnFloor.current = false;
           }
         }}
       >
         <group>
           {Object.keys(nodes).map((nodeKey) => {
-            const node = nodes[nodeKey];
+            const node = nodes[nodeKey] as Mesh;
             return (
               <mesh
                 key={nodeKey}
                 geometry={node.geometry}
-                material={materials[node.material?.name]}
+                material={materials[(node.material as Material)?.name]}
               >
                 <primitive scale={1} object={node} />
               </mesh>
@@ -120,12 +127,12 @@ export const Experience = () => {
       <RigidBody position={[5, 0, -5]} type="fixed">
         <group scale={0.01}>
           {Object.keys(tree.nodes).map((nodeKey) => {
-            const node = tree.nodes[nodeKey];
+            const node = tree.nodes[nodeKey] as Mesh;
             return (
               <mesh
                 key={nodeKey}
                 geometry={node.geometry}
-                material={tree.materials[node.material?.name]}
+                material={tree.materials[(node.material as Material)?.name]}
               >
                 <primitive scale={1} object={node} />
               </mesh>
@@ -138,12 +145,12 @@ export const Experience = () => {
       <RigidBody position={[5, 1, 5]}>
         <group scale={5}>
           {Object.keys(box.nodes).map((nodeKey) => {
-            const node = box.nodes[nodeKey];
+            const node = box.nodes[nodeKey] as Mesh;
             return (
               <mesh
                 key={nodeKey}
                 geometry={node.geometry}
-                material={box.materials[node.material?.name]}
+                material={box.materials[(node.material as Material)?.name]}
               >
                 <primitive scale={100} object={node} />
               </mesh>

@@ -1,18 +1,11 @@
 "use client";
 
 import { Experience } from "@/components/Experience";
+import { Controls } from "@/constants/controls";
 import { KeyboardControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/rapier";
 import { Suspense, useMemo } from "react";
-
-export const Controls = {
-  forward: "forward",
-  back: "back",
-  left: "left",
-  right: "right",
-  jump: "jump",
-};
 
 function App() {
   // 1. keyboard 입력과 동작 매핑

@@ -1,6 +1,6 @@
 import CurtainTransition from "../@layout/CurtainTransition";
 import Layout from "../@layout/layout";
-import OpacityTransition from "../@layout/OpacityTransition";
+// import OpacityTransition from "../@layout/OpacityTransition";
 
 function Opacity() {
   return (

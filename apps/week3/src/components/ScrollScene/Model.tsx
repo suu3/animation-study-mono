@@ -4,11 +4,12 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { motion } from "framer-motion-3d";
 import { useMotionValue, animate, MotionValue } from "framer-motion";
 import Text3d from "./Text3d";
+import { type Object3D, type Mesh, Box3 } from "three";
 
 export default function Model() {
   const model = useGLTF("/medias/vintage_tv.glb");
-  const meshRef = useRef();
-  const [height, setHeight] = useState(0);
+  const meshRef = useRef<Mesh>();
+  const [height, setHeight] = useState<number>(0);
   const { viewport } = useThree();
 
   // 1. 모델의 크기를 구해서 세로 중앙 위치시킨다.
@@ -16,11 +17,11 @@ export default function Model() {
     let minY = Infinity,
       maxY = -Infinity;
 
-    model.scene.traverse((item) => {
-      if (item.isMesh) {
-        const geomBbox = item.geometry.boundingBox;
-        if (minY > geomBbox.min.y) minY = geomBbox.min.y;
-        if (maxY < geomBbox.max.y) maxY = geomBbox.max.y;
+    model.scene.traverse((item: Object3D) => {
+      if ((item as Mesh).isMesh) {
+        const geomBbox = new Box3().setFromObject(item);
+        if (geomBbox.min.y < minY) minY = geomBbox.min.y;
+        if (geomBbox.max.y > maxY) maxY = geomBbox.max.y;
       }
     });
 
@@ -34,9 +35,11 @@ export default function Model() {
   const [section, setSection] = useState(0);
 
   useFrame(() => {
-    if (!data.scroll) return;
+    // data.offset을 사용하여 스크롤 값을 계산
+    if (!data) return;
+
     // 현재 페이지 계산
-    const curSection = Math.round(data.scroll.current * (data.pages - 1));
+    const curSection = Math.round(data.offset * (data.pages - 1));
 
     // 섹션 변경 호출
     if (curSection !== lastScroll.current) {
@@ -45,7 +48,7 @@ export default function Model() {
     }
 
     // 마지막 스크롤 위치 업데이트
-    lastScroll.current = data.scroll.current;
+    lastScroll.current = data.offset; // 기존 data.scroll.current에서 변경
   });
 
   // 3. 섹션 번호 변화에 따른 애니메이션

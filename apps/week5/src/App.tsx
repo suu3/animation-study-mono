@@ -1,10 +1,10 @@
 import "./App.css";
 import { OrbitControls } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import Group from "./group/Group";
 import { Suspense, useCallback, useState } from "react";
 import Loader from "./components/Loader";
-import * as THREE from "three";
+// import * as THREE from "three";
 
 // const CameraController = ({ lookAt, position }) => {
 //   const { camera } = useThree();

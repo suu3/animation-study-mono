@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { animated, to, useSpring } from "@react-spring/three";
 import { convertModelNameToPath } from "@/utils/path";
 import { useRandomAnimation } from "@/hooks/useRandomAnimation";
-import { EmojiSrcType } from "@/types/Emoji";
+import { EmojiSrcType } from "@/types/emojiTypes";
 import { useTexture } from "@react-three/drei";
 
 interface EmojiModelProps {

@@ -1,17 +1,18 @@
 import React, { useRef } from "react";
 import { useGLTF, Text, MeshTransmissionMaterial } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
+import { type Mesh } from "three";
 // import { useControls } from "leva";
 
 export default function Model() {
   const { nodes } = useGLTF("/medias/torrus.glb");
   const { viewport } = useThree();
-  const torus = useRef(null);
+  const torus = useRef<Mesh>(null);
 
   useFrame(({ pointer }) => {
     const x = (pointer.x * viewport.width) / 2;
     const y = (pointer.y * viewport.height) / 2;
-    torus.current.rotation.set(-y, x, 0);
+    if (torus.current) torus.current.rotation.set(-y, x, 0);
 
     // torus.current.rotation.x += 0.02;
   });

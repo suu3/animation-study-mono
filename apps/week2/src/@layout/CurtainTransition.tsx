@@ -1,9 +1,13 @@
 import { motion } from "framer-motion";
 import styles from "./curtain-transition.module.css";
-import { ReactNode, useState } from "react";
+import { ReactNode
+  // , useState
+
+
+} from "react";
 
 const CurtainTransition = ({ children }: { children: ReactNode }) => {
-  const [isVisible, setIsVisible] = useState(true);
+  // const [isVisible, setIsVisible] = useState(true);
   return (
     <>
       <main className={styles["main-wrapper"]}>{children}</main>

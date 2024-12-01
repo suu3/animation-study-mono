@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useGLTF, Text, Float } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import React, { useEffect, useRef } from "react";
+import { Text } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import { motion } from "framer-motion-3d";
 import * as THREE from "three";
 import { useMotionValue, animate } from "framer-motion";
 
-const TextAnimation = ({ section }) => {
-  const meshRef = useRef();
+const Text3d = ({ section }: { section: number }) => {
+  const meshRef = useRef<THREE.Mesh>();
   const textureOpacity = useMotionValue(0);
   const scaleValue = useMotionValue(0);
   const isFirstSection = section === 0;
@@ -19,7 +19,8 @@ const TextAnimation = ({ section }) => {
   useFrame(() => {
     if (meshRef.current) {
       // material의 opacity를 바꿔야 투명해진다.
-      meshRef.current.material.opacity = textureOpacity.get();
+      if ("opacity" in meshRef.current.material)
+        meshRef.current.material.opacity = textureOpacity.get();
       const scale = scaleValue.get();
       meshRef.current.scale.set(scale, scale, scale);
     }
@@ -43,4 +44,4 @@ const TextAnimation = ({ section }) => {
   );
 };
 
-export default TextAnimation;
+export default Text3d;

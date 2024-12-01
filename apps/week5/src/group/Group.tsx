@@ -6,7 +6,7 @@ import { useFrame } from "@react-three/fiber";
 import { emojis } from "@/utils/emoji";
 
 interface GroupProps {
-  zOverride: number;
+  zOverride: number | null;
   is2DView: boolean;
 }
 const Group = ({ zOverride, is2DView }: GroupProps) => {

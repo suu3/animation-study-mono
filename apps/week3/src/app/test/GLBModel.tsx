@@ -1,15 +1,16 @@
 // MyScene.js
 import { Scroll, useScroll } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { GroupProps, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { motion } from "framer-motion-3d";
+import { type Group } from "three";
 
 function MyScene() {
   const scroll = useScroll();
 
-  const page1Ref = useRef();
-  const page2Ref = useRef();
-  const page3Ref = useRef();
+  const page1Ref = useRef<GroupProps & Group>(null);
+  const page2Ref = useRef<GroupProps & Group>(null);
+  const page3Ref = useRef<GroupProps & Group>(null);
 
   useFrame(() => {
     const offset = scroll.offset;
