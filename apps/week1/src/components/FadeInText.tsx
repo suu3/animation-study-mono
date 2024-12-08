@@ -58,7 +58,7 @@ const FadeInText = () => {
         variants={bottomTitleVariant}
         className={styles["title-text"]}
       >
-        {"ZERO STUDIOS is an integrated creative agency"
+        {"Lorem Ipsum is simply dummy text of the printing and typesetting industry."
           .split("")
           .map((char) => {
             return (

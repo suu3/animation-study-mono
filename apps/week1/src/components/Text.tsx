@@ -20,22 +20,22 @@ const Text = () => {
   return (
     <motion.div className={styles["text-wrapper"]}>
       <motion.h1
-        initial={"disappeared"}
+        initial="disappeared"
         animate={textDisappeared ? "disappeared" : "appeared"}
         variants={bottomTitleVariant}
         className={clsx(styles["text"], styles["shown"])}
       >
-        <motion.span variants={bottomSpanVariant}>Z</motion.span>
+        <motion.span variants={bottomSpanVariant}>T</motion.span>
         <motion.span variants={bottomSpanVariant}>E</motion.span>
-        <motion.span variants={bottomSpanVariant}>R</motion.span>
-        <motion.span variants={bottomSpanVariant}>O</motion.span>
+        <motion.span variants={bottomSpanVariant}>X</motion.span>
+        <motion.span variants={bottomSpanVariant}>T</motion.span>
       </motion.h1>
 
       <h1 className={clsx(styles["text"], styles["hidden"])}>
-        <span>Z</span>
+        <span>T</span>
         <span>E</span>
-        <span>R</span>
-        <span>O</span>
+        <span>X</span>
+        <span>T</span>
       </h1>
     </motion.div>
   );

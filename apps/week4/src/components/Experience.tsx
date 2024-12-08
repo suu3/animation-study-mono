@@ -54,24 +54,24 @@ export const Experience = () => {
     }
 
     if (rightPressed) {
-      target.current.applyImpulse({ x: 3, y: 0, z: 0 }, true);
+      target.current.applyImpulse({ x: 3, y: 0, z: 0 }, false);
     }
     if (leftPressed) {
-      target.current.applyImpulse({ x: -3, y: 0, z: 0 }, true);
+      target.current.applyImpulse({ x: -3, y: 0, z: 0 }, false);
     }
 
     if (forwardPressed) {
-      target.current.applyImpulse({ x: 0, y: 0, z: -3 }, true);
+      target.current.applyImpulse({ x: 0, y: 0, z: -3 }, false);
     }
     if (backPressed) {
-      target.current.applyImpulse({ x: 0, y: 0, z: 3 }, true);
+      target.current.applyImpulse({ x: 0, y: 0, z: 3 }, false);
     }
   };
 
   const jump = () => {
     if (isOnFloor.current) {
       isOnFloor.current = false;
-      target.current?.applyImpulse({ x: 0, y: 40, z: 0 }, true);
+      target.current?.applyImpulse({ x: 0, y: 40, z: 0 }, false);
     }
   };
 
